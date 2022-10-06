@@ -32,11 +32,7 @@ resource "aws_s3_object" "raw_data" {
 #--------------------------Glue related configuration------------
 // Create Glue Catalog Database
 resource "aws_glue_catalog_database" "raw_data" {
-  name = "raw_data"
-}
-
-resource "aws_glue_catalog_database" "default" {
-  name = "default"
+  name = "raw_data_${random_id.id.hex}"
 }
 
 // Create role for Glue Crawler service
@@ -112,7 +108,7 @@ resource "aws_glue_crawler" "raw_data_crawler" {
 #------------------------------Athena & Athena Adapter--------------------------------------
 // Athena database to build models into
 resource "aws_glue_catalog_database" "athena_dbt_models" {
-  name = "athena_dbt_models"
+  name = "athena_dbt_models_${random_id.id.hex}"
   description = "Athena database to store dbt models"
 }
 
